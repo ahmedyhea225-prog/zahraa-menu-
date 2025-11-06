@@ -1,14 +1,18 @@
 import Hero from "@/components/Hero";
 import MenuNavigation from "@/components/MenuNavigation";
 import MenuCategory from "@/components/MenuCategory";
+import FeaturedCategories from "@/components/FeaturedCategories";
 import Footer from "@/components/Footer";
+import CartDrawer from "@/components/CartDrawer";
 import { menuData } from "@/data/menuData";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Hero />
+      <FeaturedCategories />
       <MenuNavigation />
+      <CartDrawer />
       
       <main className="container mx-auto px-4 py-12">
         <div id="koshary">

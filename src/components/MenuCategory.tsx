@@ -1,4 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
 
 interface MenuItem {
   name: string;
@@ -12,6 +15,7 @@ interface MenuCategoryProps {
 }
 
 const MenuCategory = ({ title, items, icon }: MenuCategoryProps) => {
+  const { addItem } = useCart();
   return (
     <div className="mb-12 animate-slide-up" id={title.replace(/\s+/g, '-')}>
       <div className="flex items-center gap-3 mb-6">
@@ -24,16 +28,30 @@ const MenuCategory = ({ title, items, icon }: MenuCategoryProps) => {
         {items.map((item, index) => (
           <Card 
             key={index} 
-            className="hover:shadow-warm transition-all duration-300 hover:-translate-y-1 bg-card border-border"
+            className="hover:shadow-warm transition-all duration-300 hover:-translate-y-1 bg-card border-border group"
           >
             <CardContent className="p-5">
-              <div className="flex justify-between items-center" dir="rtl">
-                <h3 className="text-lg font-semibold text-foreground flex-1">
-                  {item.name}
-                </h3>
-                <span className="text-xl font-bold text-primary mr-4">
-                  {item.price} جنيه
-                </span>
+              <div className="flex justify-between items-start gap-3" dir="rtl">
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    {item.name}
+                  </h3>
+                  <span className="text-xl font-bold text-primary">
+                    {item.price} جنيه
+                  </span>
+                </div>
+                <Button
+                  size="icon"
+                  className="opacity-0 group-hover:opacity-100 transition-opacity"
+                  onClick={() => addItem({
+                    id: `${title}-${item.name}`,
+                    name: item.name,
+                    price: parseFloat(item.price),
+                    category: title,
+                  })}
+                >
+                  <Plus className="h-4 w-4" />
+                </Button>
               </div>
             </CardContent>
           </Card>
